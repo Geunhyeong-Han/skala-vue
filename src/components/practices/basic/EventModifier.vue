@@ -1,6 +1,7 @@
 <script setup>
-const handleLink = () => {
+const handleLink = (e) => {
   alert('수식어 덕분에 네이버로 이동하지 않고 함수만 실행됩니다!')
+  e.preventDefault()
 }
 
 const handleBox = () => {
@@ -20,7 +21,7 @@ const handleChild2 = () => {
   <div class="practice-section">
     <h2>이벤트 수식어(Modifiers) 학습</h2>
     <h3>1) .prevent (기본 동작 막기)</h3>
-    <a href="https://www.naver.com" @click.prevent="handleLink">네이버 링크</a>
+    <a href="https://www.naver.com" @click="handleLink">네이버 링크</a>
     <br />
 
     <h3>2) .stop (이벤트 버블링 막기)</h3>

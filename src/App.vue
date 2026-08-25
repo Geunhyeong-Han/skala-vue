@@ -23,6 +23,14 @@ import VueMemo from './components/practices/basic/VueMemo.vue'
 import EventBasic from './components/practices/basic/EventBasic.vue'
 import EventObject from './components/practices/basic/EventObject.vue'
 import EventModifier from './components/practices/basic/EventModifier.vue'
+
+// 4. Vue Form Handling
+import ModelBasic from './components/practices/basic/ModelBasic.vue'
+import ModelForm from './components/practices/basic/ModelForm.vue'
+import ModelModifier from './components/practices/basic/ModelModifier.vue'
+
+// 5. Vue Style Handling
+import StyleScoped from './components/practices/basic/StyleScoped.vue'
 </script>
 
 <template>
@@ -52,74 +60,18 @@ import EventModifier from './components/practices/basic/EventModifier.vue'
     <EventBasic />
     <EventObject />
     <EventModifier />
+    <h1>4. Vue Form Handling</h1>
+    <hr />
+    <ModelBasic />
+    <ModelForm />
+    <ModelModifier />
+    <h1>5. Vue Style Handling</h1>
+    <hr />
+    <StyleScoped />
   </div>
 </template>
 
 <style>
 /* ⚠️ 외부 스타일 파일(예: 버튼 디자인 뭉치)을 이 방 안으로 쏙 가리켜 가져옵니다 */
 @import '@/assets/practice.css';
-</style>
-
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
-}
-
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
-
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
 </style>
