@@ -1,56 +1,6 @@
-# skala-vue
+## Frontend:Vue.js 학습 기록
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Recommended Browser Setup
-
-* Chromium-based browsers (Chrome, Edge, Brave, etc.):
-
-  * [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-
-  * [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-
-* Firefox:
-
-  * [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-
-  * [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
-
-## 학습 기록
-
-Vue 3 학습 과정을 하루 단위로 기록, 총 4일차 수업
+Vue 3 학습 과정을 하루 단위로 기록, 총 4일차
 
 ### 1일차 (2026-08-24)
 
@@ -146,15 +96,55 @@ Vue 3 학습 과정을 하루 단위로 기록, 총 4일차 수업
 
 * `<style scoped>`는 자식 컴포넌트의 최상위 엘리먼트까지만 부모의 scope id(`data-v-xxx`)가 같이 붙고, 그 안쪽 자식 요소에는 안 붙는다는 걸 devtools로 직접 확인
 
-### 3일차
+### 3일차 (2026-08-26)
 
-#### 3일차 배운 것
+#### 3일차 배운 것: 컴포넌트 설계 & 라우터
 
-* (작성 예정)
+**컴포넌트 라이프사이클**
+
+* 생성(`setup` 본문) → 부착(`onMounted`) → 갱신(`onUpdated`) → 소멸(`onUnmounted`) 4단계 훅을 직접 로그로 찍어 순서 확인
+
+* `onMounted`에서 켠 `setInterval` 타이머를 `onUnmounted`에서 안 꺼주면, 컴포넌트가 사라져도 백그라운드에서 계속 도는 메모리 누수로 이어진다는 걸 직접 재현
+
+**Props & Emits**
+
+* `defineProps`로 부모→자식 단방향 데이터 주입(타입·필수 여부 검증), `defineEmits`로 자식→부모 커스텀 이벤트 발신
+
+* 자식은 props를 직접 바꿀 수 없고, 항상 emit으로 "이렇게 바꿔달라"고 부모에 요청하는 단방향 흐름을 직접 만들어보며 체감
+
+**Slot (컴포넌트 합성)**
+
+* Default Slot: 부모가 넘긴 마크업을 자식의 `<slot></slot>` 자리에 그대로 꽂아 넣기
+
+* Named Slot: `<slot name="...">` + `<template #이름>`으로 여러 구멍에 각각 다른 내용을 지정해서 꽂기 (예: 카드의 제목 영역과 본문 영역 분리)
+
+* Scoped Slot: 자식이 `<slot :text="..." :count="...">`로 내부 데이터를 부모에게 역으로 넘기고, 부모는 `v-slot="slotBag"`으로 받아 마크업만 자유롭게 구성 (부모가 마크업을 안 넘기면 자식이 지정한 fallback 콘텐츠가 대신 노출됨)
+
+**Vue Router**
+
+* `createRouter` + `createWebHistory`로 SPA 라우팅 설정, `RouterLink` / `RouterView`로 새로고침 없는 화면 전환
+
+* 동적 세그먼트 라우팅: `/weather/:cityId`로 도시 ID를 라우트 파라미터로 받아 상세 페이지 렌더링
+
+* 컴포넌트 지연 로딩: `component: () => import('...')`로 라우트별 코드 스플리팅
+
+* 와일드카드 라우트 `/:pathMatch(.*)*`는 라우트 배열 맨 마지막에 둬야 나머지 라우트를 다 가리지 않고 404 처리가 제대로 동작
+
+** 날씨 대시보드 컴포넌트 분리 + 라우터 적용**
+
+* 2일차에 한 파일로 몰아 짰던 `WeatherDashboard`를 `BaseDashboardCard`(레이아웃 전용 slot 컴포넌트) / `SearchBar` / `WeatherCard` / `WeatherParent`(상태 소유 컨테이너)로 역할별 분리
+
+* 나만의 컴포넌트를 위해 `BaseDashboardCard`에 `title` named slot을 추가해서, 카드 제목이 필요한 곳과 필요 없는 곳(검색 카드)을 같은 컴포넌트 하나로 구분 처리
+
+* 검색어를 URL 쿼리 스트링(`?search=`)에 동기화해서 주소에 검색 상태가 남도록 구현
+
+* 날씨 카드의 "상세보기" 클릭 시 `router.push('/weather/:id')`로 이동하는 상세 페이지(`WeatherDetailView`)를 별도 라우트로 분리
 
 #### 3일차 고찰
 
-* (작성 예정)
+* Props/Emits/Slot을 각각 최소 예제로 따로 만들어보니 "부모→자식은 props, 자식→부모는 emit, 자식이 부모에게 마크업 자유도까지 주고 싶으면 scoped slot"이라는 구분이 훨씬 명확해졌다
+
+* named slot을 실전 컴포넌트(`BaseDashboardCard`)에 적용해보니, 슬롯이 채워졌는지(`$slots.title`)를 체크 안 하면 내용이 없어도 헤더 껍데기 엘리먼트가 그대로 남는다는 걸 알게 됨
 
 ### 4일차
 
