@@ -4,9 +4,13 @@ import WeatherComposition from './components/exercise/WeatherComposition.vue'
 import WeatherParent from './components/exercise/WeatherParent.vue'
 import UnitToggler from './components/exercise/UnitToggler.vue'
 import ElementWeatherDashboard from './components/exercise/ElementWeatherDashboard.vue'
+import FinalWeatherDashboard from './components/exercise/FinalWeatherDashboard.vue'
 </script>
 
 <template>
+  <div class="app-container final-wrap">
+    <FinalWeatherDashboard />
+  </div>
   <div class="app-container">
     <h1>⛅ 과제 1: 날씨 (Mockup)</h1>
     <hr />
