@@ -130,7 +130,7 @@ Vue 3 학습 과정을 하루 단위로 기록, 총 4일차
 
 * 와일드카드 라우트 `/:pathMatch(.*)*`는 라우트 배열 맨 마지막에 둬야 나머지 라우트를 다 가리지 않고 404 처리가 제대로 동작
 
-** 날씨 대시보드 컴포넌트 분리 + 라우터 적용**
+**날씨 대시보드 컴포넌트 분리 + 라우터 적용**
 
 * 2일차에 한 파일로 몰아 짰던 `WeatherDashboard`를 `BaseDashboardCard`(레이아웃 전용 slot 컴포넌트) / `SearchBar` / `WeatherCard` / `WeatherParent`(상태 소유 컨테이너)로 역할별 분리
 

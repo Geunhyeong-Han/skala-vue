@@ -84,7 +84,7 @@ h1 {
 }
 .search-box,
 .list-box {
-  background: #f8f9fa;
+  background: #2b4055;
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 15px;
@@ -96,7 +96,7 @@ input {
   font-size: 14px;
 }
 .weather-card {
-  background: #fff;
+  background: #5c3737;
   border: 1px solid #dee2e6;
   padding: 12px;
   margin-bottom: 10px;
@@ -112,7 +112,7 @@ input {
   color: #fff;
 }
 .hot {
-  background-color: #ff7675;
+  background-color: #523a3b;
 }
 .cool {
   background-color: #74b9ff;
@@ -128,7 +128,7 @@ input {
   background: #e8f5e9;
   padding: 10px;
   text-align: center;
-  color: #2e7d32;
+  color: #2e2268;
   font-weight: bold;
   border-radius: 6px;
 }

@@ -1,20 +1,16 @@
 <script setup>
 import { ref, computed, watch, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
+import { useWeatherStore } from '@/stores/weatherStore'
 
 import BaseDashboardCard from '../components/exercise/BaseDashboardCard.vue'
 import SearchBar from '../components/exercise/SearchBar.vue'
 import WeatherCard from '../components/exercise/WeatherCard.vue'
+import RegionToggler from '../components/exercise/RegionToggler.vue'
 
 const router = useRouter()
 const route = useRoute()
-
-const weatherList = ref([
-  { id: 'city_01', name: '서울', temp: 28, status: '맑음' },
-  { id: 'city_03', name: '부산', temp: 26, status: '구름' },
-  { id: 'city_04', name: '인천', temp: 27, status: '맑음' },
-  { id: 'city_09', name: '제주', temp: 31, status: '맑음' },
-])
+const weatherStore = useWeatherStore()
 
 const searchQuery = ref('')
 const selectedCityInfo = ref('카드를 클릭하거나 검색해 보세요.')
@@ -36,8 +32,8 @@ watch(searchQuery, (newQuery) => {
 
 const filteredWeatherList = computed(() => {
   const query = searchQuery.value.trim()
-  if (!query) return weatherList.value
-  return weatherList.value.filter((item) => item.name.includes(query))
+  if (!query) return weatherStore.filteredCities
+  return weatherStore.filteredCities.filter((item) => item.name.includes(query))
 })
 
 // 자식 카드 컴포넌트의 상세보기 신호를 받으면 해당 ID 주소로 라우터 점프 실행
@@ -53,7 +49,10 @@ const handleDetailJump = (id) => {
     </BaseDashboardCard>
 
     <BaseDashboardCard>
-      <h3>🏙️ 지역별 날씨 현황</h3>
+      <div style="display: flex; justify-content: space-between; align-items: center">
+        <h3>🏙️ 지역별 날씨 현황</h3>
+        <RegionToggler />
+      </div>
       <WeatherCard v-for="item in filteredWeatherList" :key="item.id" :city-item="item" @select-card="(msg) => (selectedCityInfo = msg)" @click-detail="handleDetailJump(item.id)" />
     </BaseDashboardCard>
     <div class="status-bar">{{ selectedCityInfo }}</div>
@@ -65,7 +64,7 @@ const handleDetailJump = (id) => {
   background: #e8f5e9;
   padding: 10px;
   text-align: center;
-  color: #2e7d32;
+  color: #432e7d;
   font-weight: bold;
   border-radius: 6px;
 }
