@@ -20,6 +20,8 @@ onMounted(() => {
   if (route.query.search) {
     searchQuery.value = route.query.search
   }
+  weatherStore.fetchCities()
+  weatherStore.fetchCountryFlags()
 })
 
 // 타이핑될 때마다 주소창의 쿼리 스트링 값을 실시간 푸시 개편 (현재 큰 의미없음)
@@ -53,6 +55,8 @@ const handleDetailJump = (id) => {
         <h3>🏙️ 지역별 날씨 현황</h3>
         <RegionToggler />
       </div>
+      <p v-if="weatherStore.isLoading" class="fetch-status">실시간 날씨 불러오는 중...</p>
+      <p v-else-if="weatherStore.fetchError" class="fetch-status error">{{ weatherStore.fetchError }}</p>
       <WeatherCard v-for="item in filteredWeatherList" :key="item.id" :city-item="item" @select-card="(msg) => (selectedCityInfo = msg)" @click-detail="handleDetailJump(item.id)" />
     </BaseDashboardCard>
     <div class="status-bar">{{ selectedCityInfo }}</div>
@@ -60,6 +64,14 @@ const handleDetailJump = (id) => {
 </template>
 
 <style scoped>
+.fetch-status {
+  font-size: 13px;
+  color: #64748b;
+  margin: 4px 0 8px;
+}
+.fetch-status.error {
+  color: #c0392b;
+}
 .status-bar {
   background: #e8f5e9;
   padding: 10px;

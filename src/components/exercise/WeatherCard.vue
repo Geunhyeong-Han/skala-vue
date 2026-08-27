@@ -1,6 +1,8 @@
 <script setup>
 import { useConfigStore } from '@/stores/configStore'
+import { useWeatherStore } from '@/stores/weatherStore'
 const configStore = useConfigStore()
+const weatherStore = useWeatherStore()
 
 import { computed } from 'vue'
 
@@ -23,17 +25,31 @@ const isHot = computed(() => {
   return displayTemp.value >= threshold
 })
 
+// 대기질 지수(1~5)가 아직 안 왔으면 null → 뱃지 자체를 숨김
+const aqiDisplay = computed(() => weatherStore.aqiInfo(props.cityItem.aqi))
+
+// 국외 도시만 countryFlag가 채워지므로, 흰색 반투명 스크림을 겹쳐 국기가 은은하게 비치도록 처리
+const cardStyle = computed(() => {
+  if (!props.cityItem.countryFlag) return {}
+  return {
+    backgroundImage: `linear-gradient(rgba(255, 255, 255, 0.88), rgba(255, 255, 255, 0.88)), url(${props.cityItem.countryFlag})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  }
+})
+
 // 2. 상위로 송신할 두 가지 경로의 커스텀 이벤트 식별자 등록 (매크로)
 const emit = defineEmits(['select-card', 'click-detail'])
 </script>
 
 <template>
-  <div class="weather-card" @click="emit('select-card', `${cityItem.name}이 선택되었습니다.`)">
+  <div class="weather-card" :style="cardStyle" @click="emit('select-card', `${cityItem.name}이 선택되었습니다.`)">
     <h4>{{ cityItem.name }} ({{ cityItem.status }})</h4>
     <p>현재 기온: {{ displayTemp }}{{ configStore.unitSymbol }}</p>
 
     <span v-if="isHot" class="badge hot">🥵 더움</span>
     <span v-else class="badge cool">🥶 선선함</span>
+    <span v-if="aqiDisplay" class="badge aqi">{{ aqiDisplay.emoji }} {{ aqiDisplay.label }}</span>
 
     <button class="btn-detail" @click.stop="emit('click-detail', cityItem.name, cityItem.status)">상세보기</button>
   </div>
@@ -61,6 +77,10 @@ const emit = defineEmits(['select-card', 'click-detail'])
 }
 .cool {
   background-color: #74b9ff;
+}
+.aqi {
+  background-color: #57606f;
+  margin-left: 6px;
 }
 .btn-detail {
   position: absolute;

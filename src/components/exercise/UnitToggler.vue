@@ -15,7 +15,7 @@ const configStore = useConfigStore()
 <style scoped>
 .toggle-btn {
   padding: 6px 10px;
-  background-color: #4b6584;
+  background-color: #0e0f0f;
   color: white;
   border: none;
   border-radius: 4px;
