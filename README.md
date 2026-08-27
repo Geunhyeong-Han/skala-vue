@@ -1,6 +1,33 @@
-## Frontend:Vue.js 학습 기록
+# Vue Weather Dashboard
 
-Vue 3 학습 과정을 하루 단위로 기록, 총 4일차
+Vue 3 + Vite 날씨 대시보드. Mockup → Composition API → 컴포넌트 분리 → 라우터 → Pinia → 외부 API(OpenWeatherMap, REST Countries) → Element Plus 순으로 확장.
+
+**스택**: Vue 3, Vite, Pinia, Vue Router, Axios, Element Plus
+
+## 과제 정리 (0~8)
+
+* 과제 0 — Vue.js 시작: 프로젝트 세팅
+* 과제 1 — Mockup: 정적 데이터, 카드 목록, 검색
+* 과제 2 — Composition API: computed/watch로 실시간 필터링
+* 과제 3 — Component 분리: BaseDashboardCard/SearchBar/WeatherCard
+* 과제 4 — Router: 다중 페이지, URL 쿼리 동기화
+* 과제 5 — Store: Pinia 전역 상태
+* 과제 6 — Axios 연동: 외부 데이터 + OpenWeatherMap 연결
+* 과제 7 — Element Plus: UI 라이브러리 적용
+* 과제 8 — Build & 품질관리: 빌드/린트/포맷
+
+### 나만의 기능
+
+* 과제 1: 도시 데이터셋 직접 구성
+* 과제 2: 온도 구간별 관광 정보 추천
+* 과제 3: WeatherCard에 단위변환·AQI·국기까지 확장
+* 과제 4: 설정 페이지(`WeatherSettingsView`) 신규 추가
+* 과제 5: weatherStore로 국내/국외 구분 직접 설계
+* 과제 6: OpenWeatherMap + REST Countries 2개의 서로 다른 API 연동
+
+---
+
+## Frontend:Vue.js 학습 기록 (Code challenge)
 
 ### 1일차 (2026-08-24)
 
@@ -40,7 +67,7 @@ Vue 3 학습 과정을 하루 단위로 기록, 총 4일차
 
 * 디렉티브를 하나씩 별도 컴포넌트로 쪼개서 실습하니 비교가 확실히 직관적이었다 (`v-html` vs `v-text`, `v-if` vs `v-show`)
 
-* ⚠️ `v-html`을 실습하며 XSS를 몸으로 겪어보니, 실제 프로젝트에서 사용자 입력을 `v-html`에 넣으면 큰일나겠다, 개발자 도구에서 들키면 난리 ㅎㅎ
+* ⚠️ `v-html`을 실습하며 XSS를 몸으로 겪어보니, 실제 프로젝트에서 사용자 입력을 `v-html`에 삽입 X ==> XSS
 
 ### 2일차 (2026-08-25)
 
@@ -80,14 +107,13 @@ Vue 3 학습 과정을 하루 단위로 기록, 총 4일차
 
 * `watchEffect`: 콜백 안에서 참조한 반응형 값을 자동으로 추적해서 즉시 실행
 
-**미니 프로젝트: 날씨 대시보드 🌤️**
+**Hands on: 날씨 대시보드 🌤️**
 
 * 서울·부산·강릉·제주·경주 5개 도시 데이터에 온도 구간(더움/보통/선선)별 관광 특성을 직접 설계해서 날씨와 여행 정보를 엮어봄
 
 * ⭐ **나만의 반응형 상태** `selectedCityId`: 클릭한 도시의 문구를 바로 저장하지 않고, "어떤 도시가 선택됐는지" id만 저장하도록 설계
 
-* ⭐ **나만의 computed 체이닝** `selectedCity → selectedTourism → statusBarText`: id로 도시 찾기 → 온도 구간에 맞는 관광 특성 계산 → 상태바에 보여줄 문구 조립까지, computed직접 구현
-
+* ⭐ **나만의 computed 체이닝** `selectedCity → selectedTourism → statusBarText`: id로 도시 찾기 → 온도 구간에 맞는 관광 특성 계산 
 * ⭐ **나만의 watch**: `selectedCityId`가 바뀔 때마다 콘솔에 "어떤 도시를 선택했는지" 로그를 남기도록 구현
 
 #### 2일차 고찰
@@ -146,13 +172,39 @@ Vue 3 학습 과정을 하루 단위로 기록, 총 4일차
 
 * named slot을 실전 컴포넌트(`BaseDashboardCard`)에 적용해보니, 슬롯이 채워졌는지(`$slots.title`)를 체크 안 하면 내용이 없어도 헤더 껍데기 엘리먼트가 그대로 남는다는 걸 알게 됨
 
-### 4일차
+### 4일차 (2026-08-27)
 
-#### 4일차 배운 것
+#### 4일차 배운 것: Pinia 스토어, 외부 API 연동, Element Plus
 
-* (작성 예정)
+* `defineStore`를 함수형(Composition) 방식으로 작성, state/getters/actions를 ref/computed/function으로 매핑
+
+* ⭐ `weatherStore.js`: 도시 데이터·국내외 구분·API 연동을 전담하는 나만의 스토어 (`configStore`는 단위 변환만 담당)
+
+* OpenWeatherMap 날씨 + Air Pollution API를 체이닝 호출 (날씨 응답의 좌표를 그대로 재사용)
+
+* REST Countries는 `Authorization: Bearer` 헤더 인증 + CORS Allowed Origins 등록이 필요
+
+* `.env` / `.env.local` / `.env.[mode].local` 로딩 우선순위, 비밀값은 `.local`에만
+
+* ⭐ 두 API를 `Promise.all`로 묶어 대시보드 데이터를 전부 실데이터로 교체
+
+* `app.use(ElementPlus)` 전역 등록과 CSS 전역 import는 앱 전체(다른 화면까지)에 영향
+
+* ⭐ 같은 store를 재사용하는 Element Plus 대시보드 두 벌 제작, `--el-color-primary` 재정의로 섹션별 브랜드 컬러 적용
+
+* `vite build --mode staging|production`으로 환경별 빌드 분기, 배포 환경 변수는 로컬 `.env`가 아니라 Vercel 대시보드에 별도 등록
+
+* Prettier/ESLint/oxlint를 `run-s`로 묶어 한 번에 실행
 
 #### 4일차 고찰
 
-* (작성 예정)
+* 🐛 `defineProps()` 반환값을 변수에 안 담으면 템플릿에선 멀쩡해 보여도 `<script setup>`의 일반 JS 코드에선 `ReferenceError` — 콘솔 안 봤으면 못 찾을 뻔
+
+* 🐛 배경/글자색을 감으로 바꾸다 상태바 글자가 배경과 거의 같은 색이 되어 안 보이게 됨 — 대비(contrast)는 눈으로 직접 확인해야 함
+
+* REST Countries가 v3.1 → v5로 엔드포인트·응답 구조를 통째로 바꿔서, 무료 API도 스펙이 예고 없이 바뀔 수 있다는 걸 체감
+
+* CORS 에러가 항상 "CORS blocked"로 뜨는 게 아니라, 서버가 에러 응답에 CORS 헤더를 안 붙이면 그냥 `Network Error`로만 나옴 — curl로 직접 찍어봐야 원인이 보임
+
+* `.env.local` 하나가 파일 정리 중 사라지면서 API 연동이 조용히 실패 — 환경변수는 git diff에도 안 보여서 더 조심해야 함
 

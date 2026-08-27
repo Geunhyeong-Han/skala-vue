@@ -34,6 +34,8 @@ import FinalWeatherDashboard from './components/exercise/FinalWeatherDashboard.v
         <RouterLink to="/" class="nav-item">🌦️ 날씨 대시보드</RouterLink>
         <span class="divider">|</span>
         <RouterLink to="/about" class="nav-item">ℹ️ 서비스 소개</RouterLink>
+        <span class="divider">|</span>
+        <RouterLink to="/settings" class="nav-item">⚙️ 설정</RouterLink>
       </nav>
       <main>
         <RouterView />
