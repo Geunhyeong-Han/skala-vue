@@ -15,7 +15,7 @@ const weatherStore = useWeatherStore()
 <style scoped>
 .toggle-btn {
   padding: 6px 10px;
-  background-color: #6c5ce7;
+  background-color: #6366f1;
   color: white;
   border: none;
   border-radius: 4px;

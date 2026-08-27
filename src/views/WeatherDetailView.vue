@@ -8,12 +8,36 @@ const router = useRouter()
 const configStore = useConfigStore()
 
 const mockDetails = {
-  city_01: { name: '대한민국 서울특별시', temp: 28, status: '맑음', humidity: '55%', wind: '2.5m/s' },
-  city_03: { name: '경기도 수원시 영통구', temp: 24, status: '비', humidity: '85%', wind: '4.1m/s' },
+  city_01: {
+    name: '대한민국 서울특별시',
+    temp: 28,
+    status: '맑음',
+    humidity: '55%',
+    wind: '2.5m/s',
+  },
+  city_03: {
+    name: '경기도 수원시 영통구',
+    temp: 24,
+    status: '비',
+    humidity: '85%',
+    wind: '4.1m/s',
+  },
   city_04: { name: '인천광역시 남동구', temp: 27, status: '맑음', humidity: '60%', wind: '3.2m/s' },
-  city_09: { name: '제주특별자치도 제주시', temp: 31, status: '맑음', humidity: '50%', wind: '2.8m/s' },
+  city_09: {
+    name: '제주특별자치도 제주시',
+    temp: 31,
+    status: '맑음',
+    humidity: '50%',
+    wind: '2.8m/s',
+  },
   city_10: { name: '일본 도쿄도', temp: 30, status: '맑음', humidity: '65%', wind: '3.0m/s' },
-  city_11: { name: '미국 뉴욕주 뉴욕시', temp: 22, status: '흐림', humidity: '58%', wind: '5.2m/s' },
+  city_11: {
+    name: '미국 뉴욕주 뉴욕시',
+    temp: 22,
+    status: '흐림',
+    humidity: '58%',
+    wind: '5.2m/s',
+  },
   city_12: { name: '영국 런던', temp: 18, status: '비', humidity: '80%', wind: '4.5m/s' },
   city_13: { name: '프랑스 파리', temp: 20, status: '맑음', humidity: '62%', wind: '3.6m/s' },
 }
@@ -31,7 +55,7 @@ onMounted(() => {
 const displayTemp = computed(() => {
   if (!cityData.value) return null
   if (configStore.unit === 'celsius') return cityData.value.temp
-  return Math.round(cityData.value.temp * 9 / 5 + 32)
+  return Math.round((cityData.value.temp * 9) / 5 + 32)
 })
 </script>
 
@@ -66,14 +90,15 @@ const displayTemp = computed(() => {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
 }
 .info-card {
-  background: #f1f2f6;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
   padding: 15px;
   border-radius: 6px;
   margin: 15px 0;
 }
 .back-btn {
   padding: 8px 12px;
-  background: #2c3e50;
+  background: #1e293b;
   color: white;
   border: none;
   border-radius: 4px;

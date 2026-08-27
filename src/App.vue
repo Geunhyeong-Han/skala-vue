@@ -3,6 +3,7 @@ import WeatherMockup from './components/exercise/WeatherMockup.vue'
 import WeatherComposition from './components/exercise/WeatherComposition.vue'
 import WeatherParent from './components/exercise/WeatherParent.vue'
 import UnitToggler from './components/exercise/UnitToggler.vue'
+import ElementWeatherDashboard from './components/exercise/ElementWeatherDashboard.vue'
 </script>
 
 <template>
@@ -54,6 +55,11 @@ import UnitToggler from './components/exercise/UnitToggler.vue'
         <RouterView />
       </main>
     </div>
+  </div>
+  <div class="app-container">
+    <h1>⛅ 과제 6: Element Plus UI 기능 대시보드</h1>
+    <hr />
+    <ElementWeatherDashboard />
   </div>
 </template>
 

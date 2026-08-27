@@ -27,7 +27,9 @@ function showDetail(cityName, status) {
         placeholder="검색할 도시 이름 입력"
         @input="searchQuery = $event.target.value"
       />
-      <p>검색 중인 도시: <strong>{{ searchQuery }}</strong></p>
+      <p>
+        검색 중인 도시: <strong>{{ searchQuery }}</strong>
+      </p>
     </section>
 
     <section class="list-box">

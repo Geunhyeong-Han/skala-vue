@@ -4,7 +4,15 @@ const configStore = useConfigStore()
 </script>
 
 <template>
-  <div style="text-align: center; margin-left: auto; display: inline-flex; align-items: center; gap: 8px">
+  <div
+    style="
+      text-align: center;
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    "
+  >
     <span
       >날씨단위: <strong>{{ configStore.unit === 'celsius' ? '섭씨(℃)' : '화씨(℉)' }}</strong></span
     >
@@ -15,7 +23,7 @@ const configStore = useConfigStore()
 <style scoped>
 .toggle-btn {
   padding: 6px 10px;
-  background-color: #0e0f0f;
+  background-color: #6366f1;
   color: white;
   border: none;
   border-radius: 4px;

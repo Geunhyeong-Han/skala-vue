@@ -16,12 +16,12 @@ const props = defineProps({
 
 const displayTemp = computed(() => {
   if (configStore.unit === 'celsius') return props.cityItem.temp
-  return Math.round(props.cityItem.temp * 9 / 5 + 32)
+  return Math.round((props.cityItem.temp * 9) / 5 + 32)
 })
 
 // cityItem.temp는 항상 섭씨 원본값이므로, 더움 판정 기준(25°C)도 현재 단위에 맞게 환산
 const isHot = computed(() => {
-  const threshold = configStore.unit === 'celsius' ? 25 : Math.round(25 * 9 / 5 + 32)
+  const threshold = configStore.unit === 'celsius' ? 25 : Math.round((25 * 9) / 5 + 32)
   return displayTemp.value >= threshold
 })
 
@@ -43,7 +43,11 @@ const emit = defineEmits(['select-card', 'click-detail'])
 </script>
 
 <template>
-  <div class="weather-card" :style="cardStyle" @click="emit('select-card', `${cityItem.name}이 선택되었습니다.`)">
+  <div
+    class="weather-card"
+    :style="cardStyle"
+    @click="emit('select-card', `${cityItem.name}이 선택되었습니다.`)"
+  >
     <h4>{{ cityItem.name }} ({{ cityItem.status }})</h4>
     <p>현재 기온: {{ displayTemp }}{{ configStore.unitSymbol }}</p>
 
@@ -51,14 +55,16 @@ const emit = defineEmits(['select-card', 'click-detail'])
     <span v-else class="badge cool">🥶 선선함</span>
     <span v-if="aqiDisplay" class="badge aqi">{{ aqiDisplay.emoji }} {{ aqiDisplay.label }}</span>
 
-    <button class="btn-detail" @click.stop="emit('click-detail', cityItem.name, cityItem.status)">상세보기</button>
+    <button class="btn-detail" @click.stop="emit('click-detail', cityItem.name, cityItem.status)">
+      상세보기
+    </button>
   </div>
 </template>
 
 <style scoped>
 .weather-card {
-  background: #faf8f8;
-  border: 1px solid #6e8b1e;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   padding: 12px;
   margin-bottom: 10px;
   border-radius: 6px;
@@ -73,13 +79,13 @@ const emit = defineEmits(['select-card', 'click-detail'])
   color: #fff;
 }
 .hot {
-  background-color: #ff7675;
+  background-color: #fb7185;
 }
 .cool {
-  background-color: #74b9ff;
+  background-color: #38bdf8;
 }
 .aqi {
-  background-color: #57606f;
+  background-color: #475569;
   margin-left: 6px;
 }
 .btn-detail {

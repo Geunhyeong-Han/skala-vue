@@ -20,14 +20,94 @@ export const useWeatherStore = defineStore('weather', () => {
   // temp/status/aqi는 API 응답이 오기 전까지 화면에 보여줄 초기값(목업)이고, query는 OpenWeatherMap 조회용 도시명
   // countryCode는 REST Countries 조회용 alpha-2 코드, countryFlag는 배경에 깔 국기 이미지 URL(국외만 채워짐)
   const cities = ref([
-    { id: 'city_01', name: '서울', query: 'Seoul,KR', temp: 28, status: '맑음', aqi: null, countryCode: 'KR', countryFlag: null, region: 'domestic' },
-    { id: 'city_03', name: '부산', query: 'Busan,KR', temp: 26, status: '구름', aqi: null, countryCode: 'KR', countryFlag: null, region: 'domestic' },
-    { id: 'city_04', name: '인천', query: 'Incheon,KR', temp: 27, status: '맑음', aqi: null, countryCode: 'KR', countryFlag: null, region: 'domestic' },
-    { id: 'city_09', name: '제주', query: 'Jeju,KR', temp: 31, status: '맑음', aqi: null, countryCode: 'KR', countryFlag: null, region: 'domestic' },
-    { id: 'city_10', name: '도쿄', query: 'Tokyo,JP', temp: 30, status: '맑음', aqi: null, countryCode: 'JP', countryFlag: null, region: 'international' },
-    { id: 'city_11', name: '뉴욕', query: 'New York,US', temp: 22, status: '흐림', aqi: null, countryCode: 'US', countryFlag: null, region: 'international' },
-    { id: 'city_12', name: '런던', query: 'London,GB', temp: 18, status: '비', aqi: null, countryCode: 'GB', countryFlag: null, region: 'international' },
-    { id: 'city_13', name: '파리', query: 'Paris,FR', temp: 20, status: '맑음', aqi: null, countryCode: 'FR', countryFlag: null, region: 'international' },
+    {
+      id: 'city_01',
+      name: '서울',
+      query: 'Seoul,KR',
+      temp: 28,
+      status: '맑음',
+      aqi: null,
+      countryCode: 'KR',
+      countryFlag: null,
+      region: 'domestic',
+    },
+    {
+      id: 'city_03',
+      name: '부산',
+      query: 'Busan,KR',
+      temp: 26,
+      status: '구름',
+      aqi: null,
+      countryCode: 'KR',
+      countryFlag: null,
+      region: 'domestic',
+    },
+    {
+      id: 'city_04',
+      name: '인천',
+      query: 'Incheon,KR',
+      temp: 27,
+      status: '맑음',
+      aqi: null,
+      countryCode: 'KR',
+      countryFlag: null,
+      region: 'domestic',
+    },
+    {
+      id: 'city_09',
+      name: '제주',
+      query: 'Jeju,KR',
+      temp: 31,
+      status: '맑음',
+      aqi: null,
+      countryCode: 'KR',
+      countryFlag: null,
+      region: 'domestic',
+    },
+    {
+      id: 'city_10',
+      name: '도쿄',
+      query: 'Tokyo,JP',
+      temp: 30,
+      status: '맑음',
+      aqi: null,
+      countryCode: 'JP',
+      countryFlag: null,
+      region: 'international',
+    },
+    {
+      id: 'city_11',
+      name: '뉴욕',
+      query: 'New York,US',
+      temp: 22,
+      status: '흐림',
+      aqi: null,
+      countryCode: 'US',
+      countryFlag: null,
+      region: 'international',
+    },
+    {
+      id: 'city_12',
+      name: '런던',
+      query: 'London,GB',
+      temp: 18,
+      status: '비',
+      aqi: null,
+      countryCode: 'GB',
+      countryFlag: null,
+      region: 'international',
+    },
+    {
+      id: 'city_13',
+      name: '파리',
+      query: 'Paris,FR',
+      temp: 20,
+      status: '맑음',
+      aqi: null,
+      countryCode: 'FR',
+      countryFlag: null,
+      region: 'international',
+    },
   ])
 
   const viewRegion = ref('domestic')
@@ -35,7 +115,9 @@ export const useWeatherStore = defineStore('weather', () => {
   const fetchError = ref(null)
 
   // 2. getters: 현재 범위에 맞는 도시 목록과, 화면에 뿌릴 라벨
-  const filteredCities = computed(() => cities.value.filter((city) => city.region === viewRegion.value))
+  const filteredCities = computed(() =>
+    cities.value.filter((city) => city.region === viewRegion.value),
+  )
 
   const regionLabel = computed(() => (viewRegion.value === 'domestic' ? '국내' : '국외'))
 

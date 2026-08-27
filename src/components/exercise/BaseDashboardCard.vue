@@ -11,11 +11,11 @@
 
 <style scoped>
 .base-dashboard-card {
-  background: #eae3e3;
+  background: #f8fafc;
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 15px;
-  border: 1px solid #060000;
+  border: 1px solid #e2e8f0;
 }
 
 .card-title {

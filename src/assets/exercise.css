@@ -13,13 +13,13 @@
     system-ui,
     Roboto,
     sans-serif;
-  color: #2c3e50;
+  color: #1e293b;
 }
 /* 2. 대주제 (h1) 및 구분선 (hr) 정돈 */
 .app-container h1 {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #2c3e50;
+  color: #1e293b;
   margin-top: 48px;
   margin-bottom: 12px;
   display: flex;
@@ -40,7 +40,7 @@
 h1 {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #1a252f;
+  color: #1e293b;
   margin-top: 40px;
   margin-bottom: 8px;
 }
@@ -57,23 +57,23 @@ h1 {
 }
 .nav-item {
   text-decoration: none;
-  color: #7f8c8d;
+  color: #64748b;
   font-weight: bold;
   font-size: 16px;
   transition: color 0.2s ease;
 }
 .nav-item:hover {
-  color: #2c3e50;
+  color: #1e293b;
 }
 .divider {
   margin: 0 15px;
-  color: #dcdde1;
+  color: #e2e8f0;
 }
 
 /* 🔥 Vue Router가 활성화된 링크 태그에 자동으로 부여하는 클래스 스펙 */
 .navigation-bar .router-link-exact-active {
-  color: #3498db;
-  border-bottom: 2px solid #3498db;
+  color: #6366f1;
+  border-bottom: 2px solid #6366f1;
   padding-bottom: 2px;
 }
 
@@ -84,11 +84,11 @@ h1 {
 }
 .search-box,
 .list-box {
-  background: #c0c9d2;
+  background: #f8fafc;
   padding: 15px;
   border-radius: 8px;
   margin-bottom: 15px;
-  border: 1px solid #e9ecef;
+  border: 1px solid #e2e8f0;
 }
 input {
   padding: 8px;
@@ -96,8 +96,8 @@ input {
   font-size: 14px;
 }
 .weather-card {
-  background: #eeeaea;
-  border: 1px solid #dee2e6;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
   padding: 12px;
   margin-bottom: 10px;
   border-radius: 6px;
@@ -112,10 +112,10 @@ input {
   color: #fff;
 }
 .hot {
-  background-color: #e70a11;
+  background-color: #fb7185;
 }
 .cool {
-  background-color: #74b9ff;
+  background-color: #38bdf8;
 }
 .btn-detail {
   position: absolute;
@@ -125,10 +125,10 @@ input {
   cursor: pointer;
 }
 .status-bar {
-  background: #e8f5e9;
+  background: #eef2ff;
   padding: 10px;
   text-align: center;
-  color: #f4f3f7;
+  color: #4338ca;
   font-weight: bold;
   border-radius: 6px;
 }

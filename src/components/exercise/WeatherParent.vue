@@ -27,7 +27,9 @@ watch(selectedCityInfo, (newInfo) => {
 })
 
 watchEffect(() => {
-  console.log(`🤖 [watchEffect 자동 호출] 현재 검색어 '${searchQuery.value}'에 매칭되는 API 데이터를 필터링합니다.`)
+  console.log(
+    `🤖 [watchEffect 자동 호출] 현재 검색어 '${searchQuery.value}'에 매칭되는 API 데이터를 필터링합니다.`,
+  )
 })
 
 const showDetail = (cityName, status) => {
@@ -44,9 +46,20 @@ const showDetail = (cityName, status) => {
     <BaseDashboardCard>
       <template #title>🏙️ 지역별 날씨 현황</template>
 
-      <WeatherCard v-for="item in filteredWeatherList" :key="item.id" :city-item="item" @select-card="(msg) => (selectedCityInfo = msg)" @click-detail="showDetail" />
+      <WeatherCard
+        v-for="item in filteredWeatherList"
+        :key="item.id"
+        :city-item="item"
+        @select-card="(msg) => (selectedCityInfo = msg)"
+        @click-detail="showDetail"
+      />
 
-      <p v-if="filteredWeatherList.length === 0" style="text-align: center; color: #e74c3c; padding: 10px 0">😭 검색 결과와 일치하는 도시가 없습니다.</p>
+      <p
+        v-if="filteredWeatherList.length === 0"
+        style="text-align: center; color: #dc2626; padding: 10px 0"
+      >
+        😭 검색 결과와 일치하는 도시가 없습니다.
+      </p>
     </BaseDashboardCard>
 
     <div class="status-bar">

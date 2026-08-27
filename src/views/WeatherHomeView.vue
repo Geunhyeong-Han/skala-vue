@@ -56,8 +56,16 @@ const handleDetailJump = (id) => {
         <RegionToggler />
       </div>
       <p v-if="weatherStore.isLoading" class="fetch-status">실시간 날씨 불러오는 중...</p>
-      <p v-else-if="weatherStore.fetchError" class="fetch-status error">{{ weatherStore.fetchError }}</p>
-      <WeatherCard v-for="item in filteredWeatherList" :key="item.id" :city-item="item" @select-card="(msg) => (selectedCityInfo = msg)" @click-detail="handleDetailJump(item.id)" />
+      <p v-else-if="weatherStore.fetchError" class="fetch-status error">
+        {{ weatherStore.fetchError }}
+      </p>
+      <WeatherCard
+        v-for="item in filteredWeatherList"
+        :key="item.id"
+        :city-item="item"
+        @select-card="(msg) => (selectedCityInfo = msg)"
+        @click-detail="handleDetailJump(item.id)"
+      />
     </BaseDashboardCard>
     <div class="status-bar">{{ selectedCityInfo }}</div>
   </div>
@@ -70,13 +78,13 @@ const handleDetailJump = (id) => {
   margin: 4px 0 8px;
 }
 .fetch-status.error {
-  color: #c0392b;
+  color: #dc2626;
 }
 .status-bar {
-  background: #e8f5e9;
+  background: #eef2ff;
   padding: 10px;
   text-align: center;
-  color: #432e7d;
+  color: #4338ca;
   font-weight: bold;
   border-radius: 6px;
 }

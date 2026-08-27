@@ -26,7 +26,8 @@ const selectedCar = ref('')
     </div>
     <div>
       <h3>3) 다중 Checkbox (복수 선택 -> 배열에 저장)</h3>
-      <label><input type="checkbox" value="사과" v-model="favoriteFruits" /> 사과</label> &nbsp; <label><input type="checkbox" value="바나나" v-model="favoriteFruits" /> 바나나</label> &nbsp;
+      <label><input type="checkbox" value="사과" v-model="favoriteFruits" /> 사과</label> &nbsp;
+      <label><input type="checkbox" value="바나나" v-model="favoriteFruits" /> 바나나</label> &nbsp;
       <label><input type="checkbox" value="딸기" v-model="favoriteFruits" /> 딸기</label>
       <p>
         데이터 상태 (배열): <span>{{ favoriteFruits }}</span>

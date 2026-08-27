@@ -14,7 +14,10 @@ const handleGoHome = () => {
     <hr />
 
     <div class="description-box">
-      <p>본 앱은 <strong>Vue 3</strong> 및 <strong>Vue Router 4</strong> 기반 제작된 실습용 기상 관측 대시보드 시스템입니다.</p>
+      <p>
+        본 앱은 <strong>Vue 3</strong> 및 <strong>Vue Router 4</strong> 기반 제작된 실습용 기상 관측
+        대시보드 시스템입니다.
+      </p>
       <ul>
         <li><code>components/exercise/</code> 폴더 내부의 독립 부품 연동</li>
         <li>클라이언트 사이드 라우팅을 통한 새로고침 없는 화면 전환</li>
@@ -28,7 +31,8 @@ const handleGoHome = () => {
 
 <style scoped>
 .description-box {
-  background-color: #f8f9fa;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
   padding: 12px;
   border-radius: 6px;
   line-height: 1.5;
@@ -42,21 +46,21 @@ ul {
 
 li {
   margin-bottom: 6px;
-  color: #555;
+  color: #64748b;
 }
 
 code {
-  background-color: #ffeaa7;
+  background-color: #eef2ff;
   padding: 2px 4px;
   border-radius: 4px;
-  color: #d63031;
+  color: #4338ca;
 }
 
 .home-btn {
   width: 100%;
   margin-top: 15px;
   padding: 10px;
-  background-color: #3498db;
+  background-color: #6366f1;
   color: white;
   border: none;
   border-radius: 4px;
